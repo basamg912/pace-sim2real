@@ -1,0 +1,61 @@
+<?xml version='1.0' encoding='utf-8' ?>
+<robot name="RI60_motor">
+  <link name="world" />
+  <link name="stator">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <mass value="1e-6" />
+      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 1.5708 0" />
+      <geometry>
+        <cylinder radius="0.030" length="0.030" />
+      </geometry>
+      <material name="stator_gray">
+        <color rgba="0.3 0.3 0.3 1" />
+      </material>
+    </visual>
+  </link>
+
+  <joint name="stator_fix" type="fixed">
+    <origin xyz="0 0 0.5" rpy="0 0 0" />
+    <parent link="world" />
+    <child link="stator" />
+  </joint>
+
+  <link name="rotor">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <mass value="0.050" />
+      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 1.5708 0" />
+      <geometry>
+        <cylinder radius="0.027" length="0.024" />
+      </geometry>
+      <material name="rotor_orange">
+        <color rgba="0.8 0.4 0.1 1" />
+      </material>
+    </visual>
+    <visual>
+      <origin xyz="0.018 0 0.014" rpy="0 0 0" />
+      <geometry>
+        <box size="0.005 0.005 0.048" />
+      </geometry>
+      <material name="indicator_red">
+        <color rgba="1 0 0 1" />
+      </material>
+    </visual>
+  </link>
+
+  <joint name="J1" type="continuous">
+    <origin xyz="0 0 0" rpy="0 0 0" />
+    <parent link="stator" />
+    <child link="rotor" />
+    <axis xyz="1 0 0" />
+    <limit effort="10000" velocity="100000" />
+  </joint>
+
+</robot>
